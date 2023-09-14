@@ -1,0 +1,50 @@
+version: "3"
+services:
+  front:
+    build:
+      context: "./client"
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    container_name: client-container
+    environment:
+      - WATCHPACK_POLLING=true
+    networks:
+      - mern-jobify-v2
+    volumes:
+      - ./client:/usr/src/app/client
+      - /user/src/app/client/node_modules/
+    command: sh -c "npm rebuild esbuild && yarn dev"
+    depends_on:
+      - backend
+  backend:
+    build:
+      context: "./"
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    container_name: server-container
+    networks:
+      - mern-jobify-v2
+    volumes:
+      - ./:/usr/src/app
+      - /user/src/app/node_modules/
+    depends_on:
+      - mongo
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
+    container_name: jobify-mongo-container
+    networks:
+      - mern-jobify-v2
+    volumes:
+      - mongoData:/data/db
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root
+      - MONGO_INITDB_DATABASE=jobify
+networks:
+  mern-jobify-v2:
+volumes:
+  mongoData:
