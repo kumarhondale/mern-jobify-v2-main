@@ -5,7 +5,7 @@ services:
       context: "./client"
       dockerfile: Dockerfile
     ports:
-      - 4000:4000
+      - 5173:5173
     container_name: client-container
     environment:
       - WATCHPACK_POLLING=true
@@ -22,7 +22,7 @@ services:
       context: "./"
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 5100:5100
     container_name: server-container
     networks:
       - mern-jobify-v2

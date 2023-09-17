@@ -3,5 +3,5 @@ WORKDIR /usr/src/app/client
 COPY ./package*.json ./
 RUN npm i   
 COPY . .
-EXPOSE 4000
+EXPOSE 5173
 CMD ["npm", "run", "dev"]
