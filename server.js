@@ -14,6 +14,7 @@ import mongoSanitize from "express-mongo-sanitize";
 import jobRouter from "./routes/jobRouter.js";
 import authRouter from "./routes/authRouter.js";
 import userRouter from "./routes/userRouter.js";
+
 // public
 import { dirname } from "path";
 import { fileURLToPath } from "url";
@@ -43,15 +44,6 @@ app.get("/", (req, res) => {
   res.send("Hello Worlds");
 });
 
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
-
-app.get("/api/v1/test", (req, res) => {
-  res.json({ msg: "test route" });
-});
-
-console.log("I am server");
 app.use("/api/v1/jobs", authenticateUser, jobRouter);
 app.use("/api/v1/users", authenticateUser, userRouter);
 app.use("/api/v1/auth", authRouter);
